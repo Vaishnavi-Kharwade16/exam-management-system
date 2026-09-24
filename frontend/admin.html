@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Dashboard - Exam Timetable</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="navbar">
+    <h2>📅 Exam Timetable — Admin</h2>
+    <div class="user-info">
+      <span id="adminName"></span>
+      <button class="btn-secondary" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h3 id="formTitle">Schedule a New Exam</h3>
+      <div id="errorMsg" class="error-msg"></div>
+      <form id="examForm">
+        <input type="hidden" id="examId" />
+        <div class="form-grid">
+          <div>
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" placeholder="e.g. Data Structures" required />
+          </div>
+          <div>
+            <label for="room">Room (optional)</label>
+            <input type="text" id="room" placeholder="e.g. Room 204" />
+          </div>
+          <div>
+            <label for="exam_date">Date</label>
+            <input type="date" id="exam_date" required />
+          </div>
+          <div>
+            <label for="exam_time">Time</label>
+            <input type="time" id="exam_time" required />
+          </div>
+          <div>
+            <label for="year">Academic Year</label>
+            <select id="year" required>
+              <option value="">Select Year</option>
+              <option value="1">Year 1</option>
+              <option value="2">Year 2</option>
+              <option value="3">Year 3</option>
+              <option value="4">Year 4</option>
+            </select>
+          </div>
+          <div>
+            <label for="section">Section</label>
+            <select id="section" required>
+              <option value="">Select Section</option>
+              <option value="A">Section A</option>
+              <option value="B">Section B</option>
+              <option value="C">Section C</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">Schedule Exam</button>
+        <button type="button" class="btn-secondary" id="cancelEditBtn" style="display:none; margin-top:8px; width:100%;">Cancel Edit</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>All Scheduled Exams</h3>
+      <div id="tableWrapper"></div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Exams - Exam Timetable</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="navbar">
+    <h2>📅 My Exam Timetable</h2>
+    <div class="user-info">
+      <span id="studentName"></span>
+      <button class="btn-secondary" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h3 id="cardTitle">Upcoming Exams</h3>
+      <div id="tableWrapper"></div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/student.js"></script>
+</body>
+</html>
