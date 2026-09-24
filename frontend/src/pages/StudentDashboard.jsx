@@ -14,26 +14,33 @@ export default function StudentDashboard() {
 
   async function loadExams() {
     setLoading(true);
+    setError('');
     try {
       const data = await apiRequest('/exams');
       setExams(data);
     } catch (err) {
+      // Handles the "student profile missing year/section" edge case (409 from server)
+      // as well as any other fetch error, with the server's message shown directly.
       setError(err.message);
     } finally {
       setLoading(false);
     }
   }
 
+  const hasProfile = user?.year != null && user?.section;
+
   return (
     <>
       <Navbar
         title="My Exam Timetable"
-        userLabel={`${user?.name} (Year ${user?.year} - Sec ${user?.section})`}
+        userLabel={hasProfile ? `${user?.name} (Year ${user?.year} - Sec ${user?.section})` : user?.name}
       />
 
       <div className="container">
         <div className="card">
-          <h3>Upcoming Exams — Year {user?.year}, Section {user?.section}</h3>
+          <h3>
+            {hasProfile ? `Upcoming Exams — Year ${user?.year}, Section ${user?.section}` : 'Upcoming Exams'}
+          </h3>
 
           {loading ? (
             <div className="loading-state">Loading...</div>
@@ -44,15 +51,15 @@ export default function StudentDashboard() {
           ) : (
             <table>
               <thead>
-                <tr><th>Subject</th><th>Date</th><th>Time</th><th>Room</th></tr>
+                <tr><th>Subject</th><th>Date</th><th>Start</th><th>End</th></tr>
               </thead>
               <tbody>
                 {exams.map((ex) => (
                   <tr key={ex.id}>
                     <td>{ex.subject}</td>
                     <td>{ex.exam_date}</td>
-                    <td>{ex.exam_time}</td>
-                    <td>{ex.room || '—'}</td>
+                    <td>{ex.start_time}</td>
+                    <td>{ex.end_time}</td>
                   </tr>
                 ))}
               </tbody>
